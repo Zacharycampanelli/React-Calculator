@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
 
 export default function RadioGroupButton() {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState('1');
 
   const selectionChangeHandler = (event) => {
     setSelected(event.target.value);
