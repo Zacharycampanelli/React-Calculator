@@ -3,7 +3,7 @@ import RadioGroupButton from "./RadioGroupButton"
 
 const Header = () => {
   return (
-    <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems:'center', pt: '1.5rem', width: '90vw'}}>
+    <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems:'center', pt: '2.5rem', width: '90vw'}}>
       <Typography variant="h2" component="h2" sx={{color: 'white'}}>calc</Typography>
 
       <Box >
