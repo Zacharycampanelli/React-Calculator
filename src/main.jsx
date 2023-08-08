@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import { ThemeProvider, CssBaseline } from '@mui/material';
 // import { basicTheme } from './assets/themes/basicTheme.js';
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 import { colorTheme1 } from './assets/themes/theme1.js';
 
 

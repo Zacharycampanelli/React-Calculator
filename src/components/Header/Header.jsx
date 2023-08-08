@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import RadioGroupButton from "./RadioGroupButton"
 
 const Header = () => {
@@ -7,7 +7,7 @@ const Header = () => {
       <Typography variant="h2" component="h2" sx={{color: 'white'}}>calc</Typography>
 
       <Box >
-      <Typography variant="h3" component="span">Theme</Typography>
+      <Typography variant="h3" component="span" sx={{ color: 'white',}}>THEME</Typography>
       <RadioGroupButton />
       </Box>
     </Box>

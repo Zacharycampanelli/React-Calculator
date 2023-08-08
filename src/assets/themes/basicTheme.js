@@ -1,13 +1,10 @@
 import { createTheme } from '@mui/material/styles';
+import { colorTheme1 } from './theme1';
 
 export const basicTheme = createTheme({
   typography: {
     fontFamily: 'League Spartan',
     h1: {
-      fontSize: {
-        xs: 40,
-        lg: 56,
-      },
       fontWeight: 700,
     },
     h2: {
@@ -19,10 +16,7 @@ export const basicTheme = createTheme({
         fontWeight: 700,
     },
     button: {
-        fontSize: {
-            xs: 32,
-            lg: 40,
-        },   
+    
         fontWeight: 700,
     },
   },
@@ -31,10 +25,28 @@ export const basicTheme = createTheme({
       xs: 0,
       sm: 375,
       md: 750,
-      lg: 1100,
+      lg: 1028,
       xl: 1440,
     },
   },
+  
 });
 
 
+basicTheme.typography.h1 = {
+   fontSize: '40px',
+    
+  "@media (min-width:1028px)": {
+    fontSize: "56px"
+  },
+
+}
+
+basicTheme.typography.button = {
+  fontSize: '32px',
+   
+ "@media (min-width:1028px)": {
+   fontSize: "40px"
+ },
+
+}

@@ -20,7 +20,7 @@ export const colorTheme1 = createTheme({...basicTheme,
       desaturatedLightBlue: '#A2B2E1',
       // Reset + delete toggle shadow
       desaturatedLightBlue2: '#414E73',
-      // = Background 
+      // = Background + button
       red: '#D03F2F',
       // = shadow, toggle shadow
       darkRed: '#93261A',
@@ -32,9 +32,51 @@ export const colorTheme1 = createTheme({...basicTheme,
       grayishOrange: '#B4A597',
 
       // Text
-      veryDarkGrayishBlue: '#444B5A',
+      veryDarkGrayishBlue: '#434A59',
       // Key toggle, text
       white: '#FFFFFF'
 
+    },
+    components: {
+      MuiButton: {
+        variants: [{
+          props: { variant: 'number'},
+          style: {
+            // maxHeight: '100%',
+            backgroundColor: '#EAE3DC',
+            color: '#434A59',
+            boxShadow: '0px 5px 0px 0px rgba(180,165,151,1)',
+            '&:hover': {
+              backgroundColor: '#FFFFFF'
+            }
+          }
+        },
+      {
+        props: { variant: 'remove'},
+        style: {
+          // fontSize: {
+          //   xs: '20px',
+          //   lg: '28px'
+          // },
+          // padding: 'px',
+          backgroundColor: '#647198',
+          color: '#FFFFFF',
+          boxShadow: '0px 5px 0px 0px rgba(65,78,115,1)',
+          '&:hover': {
+            backgroundColor: '#A2B2E1'
+          }
+        }
+      },
+    {
+      props: { variant: 'equal'},
+      style: {
+        backgroundColor: '#D03F2F',
+        color: '#FFFFFF',
+        boxShadow: '0px 5px 0px 1px rgba(147,38,26,1)',
+        '&:hover': {
+          backgroundColor: '#F96B5B'
+      }}
+    }]
+      }
     }
 })
