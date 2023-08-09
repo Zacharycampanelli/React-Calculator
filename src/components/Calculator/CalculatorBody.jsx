@@ -53,6 +53,8 @@ const CalculatorBody = () => {
         }
         console.log(total)
         setFinal(total);
+        setPrevNumbers(total);
+        setCurrentNumbers('')
         
     }
 
@@ -142,7 +144,7 @@ const CalculatorBody = () => {
           <Button variant="number" value='3' onClick={addToCurrent}>3</Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number">-</Button>
+          <Button variant="number" value="-" onClick={operatorHandler}>-</Button>
         </Grid>
         <Grid item xs={3}>
           <Button variant="number">.</Button>
@@ -151,10 +153,10 @@ const CalculatorBody = () => {
           <Button variant="number" value='0' onClick={addToCurrent}>0</Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number">/</Button>
+          <Button variant="number" value="/" onClick={operatorHandler}>/</Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number">x</Button>
+          <Button variant="number" value="x" onClick={operatorHandler}>x</Button>
         </Grid>
         <Grid item xs={6}>
           <Button variant="remove" onClick={resetHandler} sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}>
@@ -162,7 +164,7 @@ const CalculatorBody = () => {
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="equal" sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}>
+          <Button variant="equal" onClick={solveEquation} sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}>
             =
           </Button>
         </Grid>
