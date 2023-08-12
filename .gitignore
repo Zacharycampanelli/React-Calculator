@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Frontend Mentors
+*.sketch
+*.fig
+*.xd
+.prettierignore

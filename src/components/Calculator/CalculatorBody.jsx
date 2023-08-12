@@ -2,104 +2,103 @@ import { useEffect, useState } from 'react';
 import { Button, Container, Grid } from '@mui/material';
 
 const CalculatorBody = () => {
-    const [final, setFinal] = useState();
-    const [currentNumbers, setCurrentNumbers] = useState('');
-    const [prevNumbers, setPrevNumbers] = useState('');
-    const [currentOperator, setCurrentOperator] = useState('');
-    // Flag symbolizing if there are two numbers in state to perform an operation on
-    const [solvable, setSolvable] = useState(false);
+  const [final, setFinal] = useState(0);
+  const [currentNumbers, setCurrentNumbers] = useState('');
+  const [prevNumbers, setPrevNumbers] = useState('');
+  const [currentOperator, setCurrentOperator] = useState('');
 
-    useEffect(() => {
-        let secondNumber = prevNumbers.length > 0 ? true : false;
+  const addToCurrent = (e) => {
+    let num = e.target.value;
 
-        if(secondNumber) {
-            setSolvable(true);
-        }
-    }, [prevNumbers])
-
-    const addToCurrent = e => {
-        let  num = e.target.value
-        // stops 0 from becomming the first number of a string
-        if (num === '0' && currentNumbers.length === 0) return;
-        // adds the clicked number to the number being used in  the equation 
-        setCurrentNumbers((prev) => (prev.concat(num)))
-        // if another number is stored in the calculator, then we now have two number inputs
-        prevNumbers.length !== 0 ? setSolvable(true) : setSolvable(false)
+    // if after htting equal the first key you hit is a number, old input is not needed
+    if (final && !currentOperator) {
+      setPrevNumbers(null);
+      setFinal(null);
     }
 
-    const solveEquation = () => {
-        let total;
-        //  TODO parse numbers
-        let operand1 = parseInt(prevNumbers);
-        let operand2 = parseInt(currentNumbers)
-        console.log(operand1)
-        console.log(operand2)
+    // stops 0 from becomming the first number of a string
+    if (num === '0' && currentNumbers.length === 0) return;
 
-        console.log(currentOperator)
-          switch (currentOperator) {
-            case '+':
-                total = operand1 + operand2;
-                break;
-            case '-':
-                total = operand1 - operand2;
-                break;
-            case 'x':
-                total = operand1 * operand2;
-                break;
-            case '/':
-                total = operand1 / operand2;
-                // TODO remainders
-                break;
-        }
-        console.log(total)
-        setFinal(total);
-        setPrevNumbers(total);
-        setCurrentNumbers('')
-        
+    // start new number
+    setCurrentNumbers((prev) => prev?.concat(num));
+  };
+
+  const parseNumbers = () => {
+    let op1 = parseInt(prevNumbers);
+    let op2 = parseInt(currentNumbers);
+    console.log(op1, op2);
+    solveEquation(op1, op2);
+  };
+
+  const solveEquation = (operand1, operand2) => {
+    if (currentNumbers && !prevNumbers) return;
+
+    let total;
+
+    console.log(currentOperator);
+    switch (currentOperator) {
+      case '+':
+        total = operand1 + operand2;
+        break;
+      case '-':
+        total = operand1 - operand2;
+        break;
+      case 'x':
+        total = operand1 * operand2;
+        break;
+      case '/':
+        total = operand1 / operand2;
+        break;
+    }
+    console.log(total);
+    setFinal(total);
+    // setPrevNumbers(total);
+    setCurrentNumbers('');
+  };
+
+  // Handler for operator keys
+  const operatorHandler = (e) => {
+    let operator = e.target.value;
+
+    // does nothing if no numbers entered
+    if (final) {
+      setPrevNumbers(final);
+      setCurrentOperator(operator);
     }
 
-    // Handler for operator keys
-    const operatorHandler = e => {
-        let operator = e.target.value
-        console.log(operator)
-        setCurrentOperator(operator)
-        // check if there are two numbers saved in state
-        if(!solvable) {
-            // first number is done, save to state and reset
-            setPrevNumbers(currentNumbers);
-            setCurrentNumbers('');
-        }
+    if (!currentNumbers && !prevNumbers) return;
 
-        else 
-            solveEquation();
-      
+    if (prevNumbers && currentNumbers) {
+      setCurrentOperator(operator);
+      parseNumbers();
     }
 
-    // Handler for delete button
-    const deleteHandler = () => {
-        setCurrentNumbers(prev => prev.slice(0, prev.length - 1))
+    if (!final && !currentOperator && currentNumbers) {
+      setPrevNumbers(currentNumbers);
+      setCurrentNumbers('');
+      setCurrentOperator(operator);
     }
+  };
 
-    // Handler for reset button
-    const resetHandler = () => {
-        setCurrentNumbers('')
-        setPrevNumbers('')
-    }
-    
-    useEffect(() => {
-        
-        console.log(currentNumbers)
-    }, [currentNumbers])
-    
-    useEffect(() => {
-        
-        console.log(prevNumbers)
-    }, [prevNumbers])
-    
-    useEffect(() => {
-        
-        console.log('final:' + final)
-    }, [final])
+  // Handler for delete button
+  const deleteHandler = () => {
+    setCurrentNumbers((prev) => prev.slice(0, prev.length - 1));
+  };
+
+  // Handler for reset button
+  const resetHandler = () => {
+    setCurrentNumbers('');
+    setPrevNumbers('');
+  };
+
+  useEffect(() => {
+    console.log(
+      'operator: ' + currentOperator,
+      '   previous: ' + prevNumbers,
+      '   current: ' + currentNumbers,
+      '   final: ' + final
+    );
+  }, [currentNumbers, prevNumbers, final]);
 
   return (
     <Container
@@ -107,64 +106,102 @@ const CalculatorBody = () => {
     >
       <Grid container spacing={2}>
         <Grid item xs={3}>
-          <Button variant="number" value='7' onClick={addToCurrent}>
+          <Button variant="number" value="7" onClick={addToCurrent}>
             7
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='8' onClick={addToCurrent}>8</Button>
+          <Button variant="number" value="8" onClick={addToCurrent}>
+            8
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='9' onClick={addToCurrent}>9</Button>
+          <Button variant="number" value="9" onClick={addToCurrent}>
+            9
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="remove" onClick={deleteHandler} sx={{ minHeight: '100%', minWidth: '100%', fontSize: { xs: '20px', lg: '28px' } }}>
+          <Button
+            variant="remove"
+            onClick={deleteHandler}
+            sx={{ minHeight: '100%', minWidth: '100%', fontSize: { xs: '20px', lg: '28px' } }}
+          >
             DEL
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='4' onClick={addToCurrent}>4</Button>
+          <Button variant="number" value="4" onClick={addToCurrent}>
+            4
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='5' onClick={addToCurrent}>5</Button>
+          <Button variant="number" value="5" onClick={addToCurrent}>
+            5
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='6' onClick={addToCurrent}>6</Button>
+          <Button variant="number" value="6" onClick={addToCurrent}>
+            6
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='+' onClick={operatorHandler}>+</Button>
+          <Button variant="number" value="+" onClick={operatorHandler}>
+            +
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='1' onClick={addToCurrent}>1</Button>
+          <Button variant="number" value="1" onClick={addToCurrent}>
+            1
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='2' onClick={addToCurrent}>2</Button>
+          <Button variant="number" value="2" onClick={addToCurrent}>
+            2
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='3' onClick={addToCurrent}>3</Button>
+          <Button variant="number" value="3" onClick={addToCurrent}>
+            3
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value="-" onClick={operatorHandler}>-</Button>
+          <Button variant="number" value="-" onClick={operatorHandler}>
+            -
+          </Button>
         </Grid>
         <Grid item xs={3}>
           <Button variant="number">.</Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value='0' onClick={addToCurrent}>0</Button>
+          <Button variant="number" value="0" onClick={addToCurrent}>
+            0
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value="/" onClick={operatorHandler}>/</Button>
+          <Button variant="number" value="/" onClick={operatorHandler}>
+            /
+          </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value="x" onClick={operatorHandler}>x</Button>
+          <Button variant="number" value="x" onClick={operatorHandler}>
+            x
+          </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="remove" onClick={resetHandler} sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}>
+          <Button
+            variant="remove"
+            onClick={resetHandler}
+            sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}
+          >
             RESET
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="equal" onClick={solveEquation} sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}>
+          <Button
+            variant="equal"
+            onClick={parseNumbers}
+            sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}
+          >
             =
           </Button>
         </Grid>
