@@ -2,19 +2,32 @@ import { useEffect, useState } from 'react';
 import { Button, Container, Grid } from '@mui/material';
 
 const CalculatorBody = () => {
-  const [final, setFinal] = useState(0);
+  const [final, setFinal] = useState('');
   const [currentNumbers, setCurrentNumbers] = useState('');
   const [prevNumbers, setPrevNumbers] = useState('');
   const [currentOperator, setCurrentOperator] = useState('');
 
+  const [hitEqual, setHitEqual] = useState(false);
+
   const addToCurrent = (e) => {
+    console.log('NUMBER')
+    console.log('operator: ' + currentOperator,
+    '   previous: ' + prevNumbers,
+    '   current: ' + currentNumbers,
+    '   final: ' + final)
     let num = e.target.value;
 
-    // if after htting equal the first key you hit is a number, old input is not needed
-    if (final && !currentOperator) {
-      setPrevNumbers(null);
-      setFinal(null);
+    if(hitEqual) {
+      resetHandler();
+      setHitEqual(false);
     }
+
+    // if ()
+    // if after htting equal the first key you hit is a number, old input is not needed
+    if ( !currentOperator) {
+      setPrevNumbers(final);
+      setFinal('');
+    } 
 
     // stops 0 from becomming the first number of a string
     if (num === '0' && currentNumbers.length === 0) return;
@@ -22,6 +35,11 @@ const CalculatorBody = () => {
     // start new number
     setCurrentNumbers((prev) => prev?.concat(num));
   };
+
+  const hitEqualKey = () => {
+    setHitEqual(true);
+    parseNumbers();
+  }
 
   const parseNumbers = () => {
     let op1 = parseInt(prevNumbers);
@@ -31,7 +49,7 @@ const CalculatorBody = () => {
   };
 
   const solveEquation = (operand1, operand2) => {
-    if (currentNumbers && !prevNumbers) return;
+    if (!currentNumbers || !prevNumbers) return;
 
     let total;
 
@@ -52,31 +70,42 @@ const CalculatorBody = () => {
     }
     console.log(total);
     setFinal(total);
-    // setPrevNumbers(total);
+    // setCurrentOperator('')
+    setPrevNumbers(total);
     setCurrentNumbers('');
   };
 
   // Handler for operator keys
   const operatorHandler = (e) => {
+    console.log('OPERATOR')
+    console.log('operator: ' + currentOperator,
+    '   previous: ' + prevNumbers,
+    '   current: ' + currentNumbers,
+    '   final: ' + final)
+
     let operator = e.target.value;
 
+    setHitEqual(false)
     // does nothing if no numbers entered
-    if (final) {
-      setPrevNumbers(final);
-      setCurrentOperator(operator);
-    }
-
     if (!currentNumbers && !prevNumbers) return;
 
-    if (prevNumbers && currentNumbers) {
-      setCurrentOperator(operator);
-      parseNumbers();
+
+    if (prevNumbers && !currentNumbers) {
+      setPrevNumbers(final);
+      setCurrentOperator(operator)
     }
 
-    if (!final && !currentOperator && currentNumbers) {
+
+    
+    if ( !currentOperator && currentNumbers) {
       setPrevNumbers(currentNumbers);
       setCurrentNumbers('');
       setCurrentOperator(operator);
+    }
+
+     if (prevNumbers && currentNumbers) {
+      setCurrentOperator(operator);
+      parseNumbers();
     }
   };
 
@@ -87,8 +116,16 @@ const CalculatorBody = () => {
 
   // Handler for reset button
   const resetHandler = () => {
+    console.log( 'RESET' +
+      'operator: ' + currentOperator,
+      '   previous: ' + prevNumbers,
+      '   current: ' + currentNumbers,
+      '   final: ' + final
+    );
     setCurrentNumbers('');
     setPrevNumbers('');
+    setCurrentOperator('')
+    setFinal(0);
   };
 
   useEffect(() => {
@@ -199,7 +236,7 @@ const CalculatorBody = () => {
         <Grid item xs={6}>
           <Button
             variant="equal"
-            onClick={parseNumbers}
+            onClick={hitEqualKey}
             sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}
           >
             =
