@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Container, Grid } from '@mui/material';
 
-const CalculatorBody = () => {
-  const [final, setFinal] = useState('');
-  const [currentNumbers, setCurrentNumbers] = useState('');
-  const [prevNumbers, setPrevNumbers] = useState('');
-  const [currentOperator, setCurrentOperator] = useState('');
+const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, currentOperator, setCurrentOperator, prevNumbers, setPrevNumbers}) => {
 
   const [hitEqual, setHitEqual] = useState(false);
 
