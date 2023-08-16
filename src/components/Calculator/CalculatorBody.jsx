@@ -9,6 +9,12 @@ const CalculatorBody = () => {
 
   const [hitEqual, setHitEqual] = useState(false);
 
+  const addDecimal = () => {
+    if (!currentNumbers.includes('.') ) {
+      setCurrentNumbers(prev => prev.concat('.') )
+    }
+  }
+
   const addToCurrent = (e) => {
     console.log('NUMBER')
     console.log('operator: ' + currentOperator,
@@ -42,8 +48,8 @@ const CalculatorBody = () => {
   }
 
   const parseNumbers = () => {
-    let op1 = parseInt(prevNumbers);
-    let op2 = parseInt(currentNumbers);
+    let op1 = parseFloat(prevNumbers);
+    let op2 = parseFloat(currentNumbers);
     console.log(op1, op2);
     solveEquation(op1, op2);
   };
@@ -69,7 +75,7 @@ const CalculatorBody = () => {
         break;
     }
     console.log(total);
-    setFinal(total);
+    setFinal(total.toFixed(5));
     // setCurrentOperator('')
     setPrevNumbers(total);
     setCurrentNumbers('');
@@ -141,7 +147,7 @@ const CalculatorBody = () => {
     <Container
       sx={{ mt: '2rem', p: '2rem', borderRadius: '10px', backgroundColor: 'veryDarkDesaturatedBlue2', height: '72%' }}
     >
-      <Grid container spacing={2}>
+      <Grid  container spacing={2}>
         <Grid item xs={3}>
           <Button variant="number" value="7" onClick={addToCurrent}>
             7
@@ -161,7 +167,7 @@ const CalculatorBody = () => {
           <Button
             variant="remove"
             onClick={deleteHandler}
-            sx={{ minHeight: '100%', minWidth: '100%', fontSize: { xs: '20px', lg: '28px' } }}
+            sx={{ minHeight: '100%', minWidth: '-moz-available', minWidth: '-webkit-fill-available', minWidth: 'fill-available', fontSize: { xs: '20px', lg: '28px' }, px:"11px" }}
           >
             DEL
           </Button>
@@ -207,7 +213,7 @@ const CalculatorBody = () => {
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number">.</Button>
+          <Button variant="number" value="." onClick={addDecimal}>.</Button>
         </Grid>
         <Grid item xs={3}>
           <Button variant="number" value="0" onClick={addToCurrent}>
@@ -228,7 +234,7 @@ const CalculatorBody = () => {
           <Button
             variant="remove"
             onClick={resetHandler}
-            sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}
+            sx={{ minHeight: '125%', minWidth: '100%', fontSize: { xs: '20px', lg: '28px' } }}
           >
             RESET
           </Button>
@@ -237,7 +243,7 @@ const CalculatorBody = () => {
           <Button
             variant="equal"
             onClick={hitEqualKey}
-            sx={{ minHeight: '125%', minWidth: '105%', fontSize: { xs: '20px', lg: '28px' } }}
+            sx={{ minHeight: '125%', minWidth: '100%', fontSize: { xs: '20px', lg: '28px' } }}
           >
             =
           </Button>

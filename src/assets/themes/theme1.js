@@ -46,8 +46,9 @@ export const colorTheme1 = createTheme({...basicTheme,
             backgroundColor: '#EAE3DC',
             color: '#434A59',
             boxShadow: '0px 5px 0px 0px rgba(180,165,151,1)',
+            minWidth: '100%',
             '&:hover': {
-              backgroundColor: '#FFFFFF'
+              backgroundColor: '#FFFFFF',
             }
           }
         },
@@ -62,6 +63,7 @@ export const colorTheme1 = createTheme({...basicTheme,
           backgroundColor: '#647198',
           color: '#FFFFFF',
           boxShadow: '0px 5px 0px 0px rgba(65,78,115,1)',
+          minWidth: '90%',
           '&:hover': {
             backgroundColor: '#A2B2E1'
           }
@@ -73,6 +75,7 @@ export const colorTheme1 = createTheme({...basicTheme,
         backgroundColor: '#D03F2F',
         color: '#FFFFFF',
         boxShadow: '0px 5px 0px 1px rgba(147,38,26,1)',
+        minWidth: '50vw',
         '&:hover': {
           backgroundColor: '#F96B5B'
       }}
