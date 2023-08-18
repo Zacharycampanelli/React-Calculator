@@ -7,15 +7,26 @@ import CalculatorBody from './components/Calculator/CalculatorBody';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { colorTheme1 } from './assets/themes/theme1.js';
+import { colorTheme2 } from './assets/themes/theme2.js';
+import { colorTheme3 } from './assets/themes/theme3.js';
+import { useLocalStorage } from './useLocalStorage';
+// const getInitialThemeChoice = () => {
+  
+//   let usersThemeChoice = localStorage.getItem('prefers-color-scheme')
+//   usersThemeChoice = JSON.parse(usersThemeChoice);
+// return usersThemeChoice;
+// }
+// let initialTheme = getInitialThemeChoice();
 
 function App() {
-  const [theme, setTheme] = useState('colorTheme1');
+  const [theme, setTheme] = useLocalStorage("prefers-color-scheme", 'colorTheme1');
   const [final, setFinal] = useState('');
   const [currentNumbers, setCurrentNumbers] = useState('');
   const [currentOperator, setCurrentOperator] = useState('');
   const [prevNumbers, setPrevNumbers] = useState('');
-
-
+  
+ 
+  // console.log(initialTheme)
 
 
   return (
@@ -23,7 +34,7 @@ function App() {
       <CssBaseline enableColorScheme />
       <Container
         maxWidth={false}
-        sx={{ height: 'max-content', pb: '2rem', backgroundColor: 'veryDarkDesaturatedBlue' }}
+        sx={{ height: 'max-content', pb: '2rem', backgroundColor: 'mainBackgroundColor' }}
       >
         <Header theme={theme} setTheme={setTheme} />
         <Display
@@ -46,5 +57,6 @@ function App() {
     </ThemeProvider>
   );
 }
+
 
 export default App;

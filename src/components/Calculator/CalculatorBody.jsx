@@ -141,7 +141,7 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
 
   return (
     <Container
-      sx={{ mt: '2rem', p: '2rem', borderRadius: '10px', backgroundColor: 'veryDarkDesaturatedBlue2', height: '72%' }}
+      sx={{ mt: '2rem', p: '2rem', borderRadius: '10px', backgroundColor: 'toggleKeypadBackground', height: '72%' }}
     >
       <Grid  container spacing={2}>
         <Grid item xs={3}>

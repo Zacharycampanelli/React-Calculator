@@ -16,8 +16,8 @@ useEffect(() =>{
 
     
 return (
-    <Box sx={{backgroundColor: 'veryDarkDesaturatedBlue3', borderRadius: '10px', height: '6rem', display: 'flex', alignItems: 'center', justifyContent: 'end', color: 'white', mt: "2rem", p: '2rem'}}>
-        <Typography variant="h1" component="h1" sx={{color: 'white', alignSelf: "baseline"}}>{parseFloat(numDisplay).toLocaleString('en')}{' '}{currentOperator}</Typography>
+    <Box sx={{backgroundColor: 'displayBackground', borderRadius: '10px', height: '6rem', display: 'flex', alignItems: 'center', justifyContent: 'end', color: 'white', mt: "2rem", p: '2rem'}}>
+        <Typography variant="h1" component="h1" sx={{color: 'logoToggleText', alignSelf: "baseline"}}>{parseFloat(numDisplay).toLocaleString('en')}{' '}{currentOperator}</Typography>
     </Box>
   )
 }
