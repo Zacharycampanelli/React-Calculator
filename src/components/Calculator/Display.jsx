@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 const Display = ({final, currentNumbers, currentOperator, prevNumbers}) => {
 const [numDisplay, setNumDisplay] = useState('0');  
 let choice;
+
+// Decides which number to display on the calculator
 useEffect(() =>{
  choice = currentNumbers ? currentNumbers : final
  if(isNaN(choice) || choice === '') choice = prevNumbers
