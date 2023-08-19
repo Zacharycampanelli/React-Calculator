@@ -141,9 +141,9 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
 
   return (
     <Container
-      sx={{ mt: '2rem', p: '2rem', borderRadius: '10px', backgroundColor: 'toggleKeypadBackground', height: '72%' }}
+      sx={{ mt: '2rem', p: '2rem', borderRadius: '10px', backgroundColor: 'toggleKeypadBackground', height: {xs: '65vh', md: '55vh'},  }}
     >
-      <Grid  container spacing={2}>
+      <Grid  container spacing={{xs: 2, md: 3}} sx={{mx: '19px', my: '12px'}}>
         <Grid item xs={3}>
           <Button variant="number" value="7" onClick={addToCurrent}>
             7

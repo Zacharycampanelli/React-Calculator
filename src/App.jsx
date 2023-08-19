@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import Header from './components/Header/Header';
 import Display from './components/Calculator/Display';
 import CalculatorBody from './components/Calculator/CalculatorBody';
@@ -33,16 +33,18 @@ function App() {
     <ThemeProvider theme={eval(theme)}>
       <CssBaseline enableColorScheme />
       <Container
-        maxWidth={false}
-        sx={{ height: 'max-content', pb: '2rem', backgroundColor: 'mainBackgroundColor' }}
+        maxWidth={false} 
+        sx={{  height: '100vh', pb: '2rem', backgroundColor: 'mainBackgroundColor', display: {md: 'flex'}, justifyContent: {md: 'center'}, alignItems: {md: 'center'} }}
       >
+        <Box sx={{width: { md: '40vw'},}}>
+
         <Header theme={theme} setTheme={setTheme} />
         <Display
           final={final}
           currentNumbers={currentNumbers}
           currentOperator={currentOperator}
           prevNumbers={prevNumbers}
-        />
+          />
         <CalculatorBody
           final={final}
           setFinal={setFinal}
@@ -52,7 +54,8 @@ function App() {
           setCurrentOperator={setCurrentOperator}
           prevNumbers={prevNumbers}
           setPrevNumbers={setPrevNumbers}
-        />
+          />
+          </Box>
       </Container>{' '}
     </ThemeProvider>
   );
