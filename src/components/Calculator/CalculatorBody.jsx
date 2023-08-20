@@ -1,35 +1,39 @@
 import { useEffect, useState } from 'react';
 import { Button, Container, Grid } from '@mui/material';
 
-const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, currentOperator, setCurrentOperator, prevNumbers, setPrevNumbers}) => {
-
+const CalculatorBody = ({
+  final,
+  setFinal,
+  currentNumbers,
+  setCurrentNumbers,
+  currentOperator,
+  setCurrentOperator,
+  prevNumbers,
+  setPrevNumbers,
+}) => {
   const [hitEqual, setHitEqual] = useState(false);
 
   const addDecimal = () => {
-    if (!currentNumbers.includes('.') ) {
-      setCurrentNumbers(prev => prev.concat('.') )
+    if (!currentNumbers.includes('.')) {
+      setCurrentNumbers((prev) => prev.concat('.'));
     }
-  }
+  };
 
+  // When a user selects a number
   const addToCurrent = (e) => {
-    console.log('NUMBER')
-    console.log('operator: ' + currentOperator,
-    '   previous: ' + prevNumbers,
-    '   current: ' + currentNumbers,
-    '   final: ' + final)
     let num = e.target.value;
 
-    if(hitEqual) {
+    // The user starts blank after getting an answer
+    if (hitEqual) {
       resetHandler();
       setHitEqual(false);
     }
 
-    // if ()
-    // if after htting equal the first key you hit is a number, old input is not needed
-    if ( !currentOperator) {
+    // If after htting equal the first key you hit is a number, old input is not needed
+    if (!currentOperator) {
       setPrevNumbers(final);
       setFinal('');
-    } 
+    }
 
     // stops 0 from becomming the first number of a string
     if (num === '0' && currentNumbers.length === 0) return;
@@ -38,10 +42,11 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
     setCurrentNumbers((prev) => prev?.concat(num));
   };
 
+  // User hits equal
   const hitEqualKey = () => {
     setHitEqual(true);
     parseNumbers();
-  }
+  };
 
   const parseNumbers = () => {
     let op1 = parseFloat(prevNumbers);
@@ -55,7 +60,6 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
 
     let total;
 
-    console.log(currentOperator);
     switch (currentOperator) {
       case '+':
         total = operand1 + operand2;
@@ -70,42 +74,32 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
         total = operand1 / operand2;
         break;
     }
-    console.log(total);
     setFinal(total.toFixed(5));
-    // setCurrentOperator('')
     setPrevNumbers(total);
     setCurrentNumbers('');
   };
 
   // Handler for operator keys
   const operatorHandler = (e) => {
-    console.log('OPERATOR')
-    console.log('operator: ' + currentOperator,
-    '   previous: ' + prevNumbers,
-    '   current: ' + currentNumbers,
-    '   final: ' + final)
-
     let operator = e.target.value;
 
-    setHitEqual(false)
-    // does nothing if no numbers entered
-    if (!currentNumbers && !prevNumbers) return;
+    setHitEqual(false);
 
+    // Does nothing if no numbers entered
+    if (!currentNumbers && !prevNumbers) return;
 
     if (prevNumbers && !currentNumbers) {
       setPrevNumbers(final);
-      setCurrentOperator(operator)
+      setCurrentOperator(operator);
     }
 
-
-    
-    if ( !currentOperator && currentNumbers) {
+    if (!currentOperator && currentNumbers) {
       setPrevNumbers(currentNumbers);
       setCurrentNumbers('');
       setCurrentOperator(operator);
     }
 
-     if (prevNumbers && currentNumbers) {
+    if (prevNumbers && currentNumbers) {
       setCurrentOperator(operator);
       parseNumbers();
     }
@@ -118,32 +112,23 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
 
   // Handler for reset button
   const resetHandler = () => {
-    console.log( 'RESET' +
-      'operator: ' + currentOperator,
-      '   previous: ' + prevNumbers,
-      '   current: ' + currentNumbers,
-      '   final: ' + final
-    );
     setCurrentNumbers('');
     setPrevNumbers('');
-    setCurrentOperator('')
+    setCurrentOperator('');
     setFinal(0);
   };
 
-  useEffect(() => {
-    console.log(
-      'operator: ' + currentOperator,
-      '   previous: ' + prevNumbers,
-      '   current: ' + currentNumbers,
-      '   final: ' + final
-    );
-  }, [currentNumbers, prevNumbers, final]);
-
   return (
     <Container
-      sx={{ mt: '2rem', p: '2rem', borderRadius: '10px', backgroundColor: 'toggleKeypadBackground', height: {xs: '65vh', md: '55vh'},  }}
+      sx={{
+        mt: '2rem',
+        p: '2rem',
+        borderRadius: '10px',
+        backgroundColor: 'toggleKeypadBackground',
+        minHeight: { xs: '62vh', md: '68vh' },
+      }}
     >
-      <Grid  container spacing={{xs: 2, md: 3}} sx={{mx: '19px', my: '12px'}}>
+      <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mx: '19px', my: '12px' }}>
         <Grid item xs={3}>
           <Button variant="number" value="7" onClick={addToCurrent}>
             7
@@ -163,7 +148,14 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
           <Button
             variant="remove"
             onClick={deleteHandler}
-            sx={{ minHeight: '100%', minWidth: '-moz-available', minWidth: '-webkit-fill-available', minWidth: 'fill-available', fontSize: { xs: '20px', lg: '28px' }, px:"11px" }}
+            sx={{
+              minHeight: '100%',
+              minWidth: '-moz-available',
+              minWidth: '-webkit-fill-available',
+              minWidth: 'fill-available',
+              fontSize: { xs: '20px', lg: '28px' },
+              px: '11px',
+            }}
           >
             DEL
           </Button>
@@ -209,7 +201,9 @@ const CalculatorBody = ({final, setFinal, currentNumbers, setCurrentNumbers, cur
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant="number" value="." onClick={addDecimal}>.</Button>
+          <Button variant="number" value="." onClick={addDecimal}>
+            .
+          </Button>
         </Grid>
         <Grid item xs={3}>
           <Button variant="number" value="0" onClick={addToCurrent}>

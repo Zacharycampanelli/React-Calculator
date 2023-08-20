@@ -15,7 +15,7 @@ export const colorTheme2 = createTheme({
     // Slider button
     sliderBtn: '#D03F2F',
     // Slider button hover
-      sliderBtnHover: '#F98A38'
+    sliderBtnHover: '#F98A38',
   },
   components: {
     MuiButton: {

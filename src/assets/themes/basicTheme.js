@@ -11,12 +11,11 @@ export const basicTheme = createTheme({
       fontWeight: 700,
     },
     h3: {
-        fontSize: '12px',
-        fontWeight: 700,
+      fontSize: '12px',
+      fontWeight: 700,
     },
     button: {
-    
-        fontWeight: 700,
+      fontWeight: 700,
     },
   },
   breakpoints: {
@@ -28,24 +27,20 @@ export const basicTheme = createTheme({
       xl: 1440,
     },
   },
-  
 });
 
-
 basicTheme.typography.h1 = {
-   fontSize: '40px',
-    
-  "@media (min-width:1028px)": {
-    fontSize: "56px"
-  },
+  fontSize: '40px',
 
-}
+  '@media (min-width:1028px)': {
+    fontSize: '56px',
+  },
+};
 
 basicTheme.typography.button = {
   fontSize: '32px',
-   
- "@media (min-width:1028px)": {
-   fontSize: "40px"
- },
 
-}
+  '@media (min-width:1028px)': {
+    fontSize: '40px',
+  },
+};
