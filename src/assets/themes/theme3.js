@@ -3,7 +3,6 @@ import { basicTheme } from "./basicTheme";
 
 export const colorTheme3 = createTheme({...basicTheme, 
     palette: {
-      // Backgrounds
       // Main
       mainBackgroundColor: '#17062A',
       // Toggle background, keypad background
@@ -23,7 +22,6 @@ export const colorTheme3 = createTheme({...basicTheme,
         variants: [{
           props: { variant: 'number'},
           style: {
-            // maxHeight: '100%',
             backgroundColor: '#331C4E',
             color: '#FDE53C',
             boxShadow: '0px 5px 0px 0px #881C9E',
@@ -36,11 +34,6 @@ export const colorTheme3 = createTheme({...basicTheme,
       {
         props: { variant: 'remove'},
         style: {
-          // fontSize: {
-          //   xs: '20px',
-          //   lg: '28px'
-          // },
-          // padding: 'px',
           backgroundColor: '#560F7C',
           color: '#FFFFFF',
           boxShadow: '0px 5px 0px 0px #BE2AF4',

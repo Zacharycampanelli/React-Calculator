@@ -1,11 +1,14 @@
 import { Radio, FormControl, RadioGroup, FormControlLabel } from '@mui/material';
 import React, { useState, useEffect } from 'react';
+import { useLocalStorage } from '../../useLocalStorage';
+
 import CircleIcon from '@mui/icons-material/Circle';
 
 export default function RadioGroupButton({ theme, setTheme }) {
-  const [selectedTheme, setSelectedTheme] = useState('2');
-
+  const [selectedTheme, setSelectedTheme] = useLocalStorage("prefers-color-scheme", 'colorTheme1');
+  // const [selectedTheme, setSelectedTheme] = useState("1");
   // Sets the theme state value equal to the name of the theme file imports used to change the theme.
+  console.log(selectedTheme)
   useEffect(() => {
     switch (selectedTheme) {
       case '1':
@@ -25,6 +28,7 @@ export default function RadioGroupButton({ theme, setTheme }) {
 
   // When the user chooses a theme, localStorage makes it so upon returning it will use that theme.
   useEffect(() => {
+    // if(theme === undefined || theme === null) setTheme(1)
     localStorage.setItem('prefers-color-scheme', JSON.stringify(theme));
   }, [selectedTheme])
 
@@ -54,6 +58,7 @@ export default function RadioGroupButton({ theme, setTheme }) {
       <RadioGroup
         name=""
         row
+        defaultValue="1"
         value={selectedTheme}
         sx={{
           ml: '12px',
@@ -71,6 +76,7 @@ export default function RadioGroupButton({ theme, setTheme }) {
       >
         <FormControlLabel
           value="1"
+          
           onClick={selectTheme}
           control={
             <Radio
